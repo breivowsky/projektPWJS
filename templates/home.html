@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Witaj w sklepie</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="js/forms.js"></script>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/style.css') }} />
+    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body>
+<nav class="navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+			
+<div id="title">
+	<a href="/">
+		<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+	</a>
+	 <p style="color:white" align="center">Sklep internetowy AUDI</p>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Szukaj">
+	</form>
+
+	{% if not loggedIn %}
+	<div id="signInButton">
+		<a class="link" href="/loginForm">Zaloguj się</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Witaj, <br>{{firstName}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Twoje zamówienia</a>
+			<a href="/account/profile">Twój profil</a>
+			<hr>
+			<a href="/logout">Wyloguj się</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			Koszyk ({{noOfItems}})
+		</a>
+	</div>
+</div>
+ </nav>
+<div class="display">
+	<div class="displayCategory">
+		<h2>Kategoria: </h2>
+		<ul>
+			{% for row in categoryData %}
+			<li><a href="/displayCategory?categoryId={{row[0]}}">{{row[1]}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	
+	 
+	  <section id="main-page" class="jumbotron">
+        <div class="container">
+	<div>
+		<h2>Produkty: </h2>
+		{% for data in itemData %}
+		<table>
+			<tr id="productName">
+				{% for row in data %}
+				<td>
+					{{row[1]}}
+				</td>
+				{% endfor %}
+			</tr>
+			<tr id="productImage">
+				{% for row in data %}
+				<td>
+					<a href="/productDescription?productId={{row[0]}}">
+						<img src={{ url_for('static', filename='uploads/' + row[4]) }} id="itemImage" />
+					</a>
+				</td>
+				{% endfor %}
+			</tr>
+			<tr id="productPrice">
+				{% for row in data %}
+				<td>
+					{{row[2]}} PLN
+				</td>
+				{% endfor %}
+			</tr>
+		</table>
+		{% endfor %}
+	</div>
+</div>
+<form method="get" action="/add">
+    <button type="submit">Dodaj produkt</button>
+</form>
+<form method="get" action="/remove">
+    <button type="submit">Usuń produkt</button>
+</form>
+</section>
+</body>
+ <section id="informacje">
+        <div class="container">
+            <h1 class="text-info"><span class="glyphicon glyphicon-bell"></span> Informacje</h1>
+            <p>
+                Poniżej znajdują się dodatkowe informacje:
+            </p>
+            <div class="row">
+                <div class="col-sm-4 text-center">
+                   <img id="ico" src= {{ url_for('static', filename='images/1.jpg') }} alt="zalozyciel">
+                   <h3 class="text-info">Założyciel: Ferdinand Porsche</h3>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <img id="ico" src= {{ url_for('static', filename='images/2.jpg') }} alt="siedziba">
+                    <h3 class="text-info">Siedziba: Stuttgart, Niemcy</h3>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <img id="ico" src= {{ url_for('static', filename='images/3.jpg') }} alt="wlasciciel">
+                    <h3 class="text-info">Właściciel: Volkswagen AG</h3>
+                </div>
+            </div>
+    </div>
+  </section>
+    <footer>
+        <div class="container">
+            <a href="#" class="btn btn-primary btn-xs" role="button" data-toggle="modal" data-target="#myModal">Polityka prywatności</a>
+        </div>
+    </footer>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" arialabel="Close"><span ariahidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4> 
+                </div>
+                <div class="modal-body">
+                    <h1>Projekt PJWS</h1>
+                    <ol>
+                        <li>Michał Brzezicki</li>
+                        <li>18864</li>
+                        <li>Student PWSZ Elbląg</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal">Close</button>
+                </div> 
+            </div>
+        </div>
+    </div> 
+</html>
+

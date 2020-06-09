@@ -1,0 +1,42 @@
+<html>
+<head>
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="js/forms.js"></script>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/style.css') }} />
+    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+<title>Rejestracja</title>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/validateForm.js') }}">
+</script>
+</head>
+<body>
+<form action="/register" method="POST" onsubmit="return validate()">
+    <p>Email: <input type="email" name="email"></p>
+
+    <P>Hasło: <input type="password" name="password" id="password" required></p>
+
+    <p>Potwierdź hasło: <input type="password" name="cpassword" id="cpassword"></p>
+
+    <p>Imie: <input type="text" name="firstName"></p>
+    <p>Nazwisko: <input type="text" name="lastName"></p>
+    <p>Ulica: <input type="text" name="address1"></p>
+    <p>Numer mieszkania: <input type="text" name="address2"></p>
+    <p>Kod pocztowy: <input type="text" name="zipcode"></p>
+    <p>Miasto: <input type="text" name="city"></p>
+    <p>Województwo: <input type="text" name="state"></p>
+    <p>Kraj: <input type="text" name="country"></p>
+    <p>Numer telefonu: <input type="text" name="phone"></p>
+
+    <p><input type="submit" value="Zarejestruj"></p>
+
+    <a href="/loginForm">Zaloguj się</a>
+</form>
+</body>
+</html>
+
+
+
